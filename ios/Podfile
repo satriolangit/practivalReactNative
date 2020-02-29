@@ -36,6 +36,8 @@ target 'practicalReactNative' do
 
   pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
 
+  pod 'ReactNativeNavigation', :path => '../node_modules/react-native-navigation'
+
   target 'practicalReactNativeTests' do
     inherit! :search_paths
     # Pods for testing

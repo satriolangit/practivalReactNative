@@ -1,87 +1,48 @@
-import React, {Component} from 'react';
-import {StyleSheet, View} from 'react-native';
-import {connect} from 'react-redux';
+import {Navigation} from 'react-native-navigation';
+import {Provider} from 'react-redux';
 
-import PlaceList from './src/components/PlaceList/PlaceList';
-import PlaceInput from './src/components/PlaceInput/PlaceInput';
-import PlaceDetail from './src/components/PlaceDetail/PlaceDetail';
-import {
-  addPlace,
-  deletePlace,
-  selectPlace,
-  deselectPlace,
-} from './src/store/actions/index';
+import AuthScreen from './src/screens/Auth/Auth';
+import SharePlaceScreen from './src/screens/SharePlace/SharePlace';
+import FindPlaceScreen from './src/screens/FindPlace/FindPlace';
+import DashboardScreen from './src/screens/Dashboard/Dashboard';
+import configureStore from './src/store/configureStore';
 
-class App extends Component {
-  state = {
-    places: [],
-    selectedPlace: null,
-  };
+const store = configureStore();
 
-  placeAddedHandler = placeName => {
-    this.props.onAddPlace(placeName);
-  };
+//Register Screens
+Navigation.registerComponentWithRedux(
+  'practical.AuthScreen',
+  () => AuthScreen,
+  Provider,
+  store,
+);
+Navigation.registerComponentWithRedux(
+  'practical.SharePlaceScreen',
+  () => SharePlaceScreen,
+  Provider,
+  store,
+);
+Navigation.registerComponentWithRedux(
+  'practical.FindPlaceScreen',
+  () => FindPlaceScreen,
+  Provider,
+  store,
+);
+Navigation.registerComponent('practical.Dashboard', () => DashboardScreen);
 
-  placeDeletedHandler = () => {
-    this.props.onDeletePlace();
-  };
-
-  modalClosedHandler = () => {
-    this.props.onDeselectPlace();
-  };
-
-  placeSelectedHandler = key => {
-    this.props.onSelectPlace(key);
-  };
-
-  render() {
-    return (
-      <View style={styles.container}>
-        <PlaceDetail
-          selectedPlace={this.props.selectedPlace}
-          onItemDeleted={this.placeDeletedHandler}
-          onModalClosed={this.modalClosedHandler}
-        />
-        <PlaceInput onPlaceAdded={this.placeAddedHandler} />
-        <View style={styles.listContainer}>
-          <PlaceList
-            places={this.props.places}
-            onItemSelected={this.placeSelectedHandler}
-          />
-        </View>
-      </View>
-    );
-  }
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-  },
-  listContainer: {
-    width: '100%',
-  },
+//Start an App
+Navigation.events().registerAppLaunchedListener(() => {
+  Navigation.setRoot({
+    root: {
+      component: {
+        name: 'practical.AuthScreen',
+        options: {
+          topBar: {
+            visible: true,
+            title: 'Login',
+          },
+        },
+      },
+    },
+  });
 });
-
-const mapStateToProps = state => {
-  return {
-    places: state.places.places,
-    selectedPlace: state.places.selectedPlace,
-  };
-};
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onAddPlace: name => dispatch(addPlace(name)),
-    onDeletePlace: () => dispatch(deletePlace()),
-    onSelectPlace: key => dispatch(selectPlace(key)),
-    onDeselectPlace: () => dispatch(deselectPlace()),
-  };
-};
-
-// eslint-disable-next-line prettier/prettier
-export default connect(mapStateToProps, mapDispatchToProps)(App);
