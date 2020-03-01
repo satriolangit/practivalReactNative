@@ -1,31 +1,37 @@
 import {Navigation} from 'react-native-navigation';
-import IonIcon from 'react-native-vector-icons/Ionicons';
+import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 
-const startTabs = () => {
+export const startApp = () => {
   Promise.all([
-    IonIcon.getImageSource('ios-menu', 30),
-    IonIcon.getImageSource('md-home', 30),
-    IonIcon.getImageSource('md-book', 30),
-    IonIcon.getImageSource('md-bookmarks', 30),
-    IonIcon.getImageSource('md-mail', 30),
+    SimpleIcon.getImageSource('menu', 30),
+    SimpleIcon.getImageSource('speedometer', 30),
+    SimpleIcon.getImageSource('book-open', 30),
+    SimpleIcon.getImageSource('bell', 30),
+    SimpleIcon.getImageSource('docs', 30),
   ]).then(
     ([menuIcon, dashboardIcon, infoIcon, announcementIcon, payslipIcon]) => {
       const dashboardTab = {
         name: 'eslip.DashboardScreen',
         options: {
           bottomTab: {
-            text: 'Home',
+            text: 'Dashboard',
             fontSize: 12,
             icon: dashboardIcon,
+            background: {
+              color: '#ccc',
+              translucent: false,
+            },
           },
           topBar: {
             visible: true,
-            title: {
-              text: 'Home',
+            background: {
+              component: {
+                name: 'eslip.TopBar',
+              },
             },
             leftButtons: {
               id: 'sideDrawerToggle',
-              icon: dashboardIcon,
+              icon: menuIcon,
             },
           },
         },
@@ -43,6 +49,7 @@ const startTabs = () => {
             visible: true,
             title: {
               text: 'Informasi',
+              alignment: 'center',
             },
             leftButtons: {
               id: 'sideDrawerToggle',
@@ -74,7 +81,7 @@ const startTabs = () => {
       };
 
       const payslipTab = {
-        name: 'eslip.Payslip',
+        name: 'eslip.PayslipScreen',
         options: {
           bottomTab: {
             fontSize: 12,
@@ -160,5 +167,3 @@ const startTabs = () => {
     },
   );
 };
-
-export default startTabs;
