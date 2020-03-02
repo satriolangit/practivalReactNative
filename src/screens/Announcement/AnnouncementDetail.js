@@ -14,7 +14,7 @@ class AnnouncementDetailScreen extends Component {
           style={styles.container}
           javaScriptEnabled={true}
           domStorageEnabled={true}
-          source={{html: this.state.htmlContent}}
+          source={{html: '<h1>Hello world</h1>'}}
         />
       </View>
     );
