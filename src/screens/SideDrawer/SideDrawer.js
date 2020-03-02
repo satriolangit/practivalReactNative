@@ -8,10 +8,15 @@ import {
 } from 'react-native';
 import SimpleIcon from 'react-native-vector-icons/SimpleLineIcons';
 
+import UserPanel from '../../components/SideBarUserPanel/UserPanel';
+
 class SideDrawer extends Component {
   render() {
     return (
       <View style={[styles.container]}>
+        <View style={styles.userContainer}>
+          <UserPanel />
+        </View>
         <TouchableOpacity>
           <View style={styles.drawerItem}>
             <SimpleIcon
@@ -20,7 +25,7 @@ class SideDrawer extends Component {
               color="#aaa"
               style={styles.drawerItemIcon}
             />
-            <Text>Dashboard</Text>
+            <Text style={styles.drawerLabel}>Dashboard</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity>
@@ -31,7 +36,7 @@ class SideDrawer extends Component {
               color="#aaa"
               style={styles.drawerItemIcon}
             />
-            <Text>Informasi</Text>
+            <Text style={styles.drawerLabel}>Informasi</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity>
@@ -42,7 +47,7 @@ class SideDrawer extends Component {
               color="#aaa"
               style={styles.drawerItemIcon}
             />
-            <Text>Pengumuman</Text>
+            <Text style={styles.drawerLabel}>Pengumuman</Text>
           </View>
         </TouchableOpacity>
         <TouchableOpacity>
@@ -53,7 +58,7 @@ class SideDrawer extends Component {
               color="#aaa"
               style={styles.drawerItemIcon}
             />
-            <Text>Sign Out</Text>
+            <Text style={styles.drawerLabel}>Sign Out</Text>
           </View>
         </TouchableOpacity>
       </View>
@@ -63,8 +68,8 @@ class SideDrawer extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    paddingTop: 50,
-    backgroundColor: 'white',
+    paddingTop: 30,
+    backgroundColor: '#2f353a',
     flex: 1,
     width: Dimensions.get('window').width * 0.5,
   },
@@ -72,10 +77,17 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     padding: 10,
-    backgroundColor: '#eee',
+    backgroundColor: 'transparent',
   },
   drawerItemIcon: {
     marginRight: 10,
+  },
+  drawerLabel: {
+    color: 'white',
+  },
+  userContainer: {
+    width: '90%',
+    height: 150,
   },
 });
 
